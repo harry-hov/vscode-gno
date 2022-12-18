@@ -1,0 +1,25 @@
+{
+  "name": "gno",
+  "displayName": "Gno",
+  "description": "Gnolang support for VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "gno",
+      "aliases": ["Gnolang", "gno"],
+      "extensions": [".gno"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "gno",
+      "scopeName": "source.gno",
+      "path": "./syntaxes/gno.tmLanguage.json"
+    }]
+  }
+}
