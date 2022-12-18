@@ -1,25 +1,53 @@
 {
   "name": "gno",
   "displayName": "Gno",
-  "description": "Gnolang support for VSCode",
-  "version": "0.0.1",
+  "version": "0.1.0-dev",
+  "preview": true,
+  "publisher": "harry-hov",
+  "description": "Gno language support for Visual Studio Code",
+  "author": {
+    "name": "Hariom Verma"
+  },
+  "license": "MIT",
+  "icon": "media/gno-logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harry-hov/vscode-gno"
+  },
+  "bugs": {
+    "url": "https://github.com/harry-hov/vscode-gno/issues"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters"
+  ],
   "engines": {
     "vscode": "^1.74.0"
   },
-  "categories": [
-    "Programming Languages"
-  ],
   "contributes": {
-    "languages": [{
-      "id": "gno",
-      "aliases": ["Gnolang", "gno"],
-      "extensions": [".gno"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "gno",
-      "scopeName": "source.gno",
-      "path": "./syntaxes/gno.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "gno",
+        "aliases": [
+          "Gnolang",
+          "gno"
+        ],
+        "extensions": [
+          ".gno"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "media/gno-logo-white.png",
+          "light": "media/gno-logo-black.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gno",
+        "scopeName": "source.gno",
+        "path": "./syntaxes/gno.tmLanguage.json"
+      }
+    ]
   }
 }
