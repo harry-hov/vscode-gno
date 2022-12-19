@@ -7,10 +7,15 @@ import * as commands from './commands';
 const gnoCtx: GnoExtensionContext = {};
 
 export function activate(ctx: vscode.ExtensionContext) {
+        const res = vscode.workspace.getConfiguration("[gno]")
+        const configuration = JSON.parse(JSON.stringify(res))
+
         // Auto apply gofumpt on save,
-        // TODO: if "editor.formatOnSave" == true, 
+        // Respects "editor.formatOnSave"
         vscode.workspace.onDidSaveTextDocument(function (e) {
-                commands.format(ctx, gnoCtx)()
+                if (configuration["editor.formatOnSave"] == true){
+                        commands.format(ctx, gnoCtx)()
+                }
         });
 
         // Creates registerCommand()
