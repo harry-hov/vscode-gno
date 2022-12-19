@@ -2,8 +2,6 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [v0.0.3-preview]
 
-## [Unreleased]
-
-- Initial release
+- Do not apply formatting on non gno files
