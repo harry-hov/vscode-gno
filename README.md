@@ -7,6 +7,10 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 ## Feature highlights
 
 * [Syntax highlighting] - Syntax highlighting for Gno files
+* [Formatting] - Automatically apply [gofumpt](https://github.com/mvdan/gofumpt) formatting on save
+* [Snippets] - Templates that make it easier to enter repeating code patterns, such as loops or conditional-statements.
+
+Note: Formatting needs `gofumpt` installed.
 
 ## Contributing
 
