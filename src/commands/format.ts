@@ -1,21 +1,26 @@
 import vscode = require("vscode")
-import cp  = require("child_process")
+import cp = require("child_process")
 import util = require('../util');
 import { dirname, isAbsolute } from 'path';
 
 import { CommandFactory } from "."
 
-export const format: CommandFactory= () =>{
-        const activeEditor = vscode.window.activeTextEditor;
+export const format: CommandFactory = () => {
+	const activeEditor = vscode.window.activeTextEditor;
+	if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
+		return () => { 
+			return vscode.window.showErrorMessage("gno.format: not a .gno file");
+		}
+	}
 
-        return () => {
-                let filename = activeEditor?.document.fileName
-                if (filename != undefined) {
-                        const res = runGoFumpt(filename)
-                        return
-                }
-                return vscode.window.showErrorMessage("gno.format: cannot get filename");
-        }
+	return () => {
+		let filename = activeEditor?.document.fileName
+		if (filename != undefined) {
+			const res = runGoFumpt(filename)
+			return
+		}
+		return vscode.window.showErrorMessage("gno.format: cannot get filename");
+	}
 }
 
 /**
@@ -25,7 +30,7 @@ export const format: CommandFactory= () =>{
 function runGoFumpt(
 	fileName: string,
 ): Thenable<void> {
-        const gofumpt = util.getBinPath('gofumpt');
+	const gofumpt = util.getBinPath('gofumpt');
 
 	return new Promise((resolve, reject) => {
 		cp.execFile(
@@ -41,9 +46,9 @@ function runGoFumpt(
 			(err, stdout, stderr) => {
 				if (err) {
 					vscode.window.showErrorMessage(stderr || err.message)
-                                        return vscode.window.showErrorMessage("gno.format: gofumpt failed");
+					return vscode.window.showErrorMessage("gno.format: gofumpt failed");
 				}
-                                return vscode.window.showInformationMessage("gno.format: gofumpt successful");
+				return vscode.window.showInformationMessage("gno.format: gofumpt successful");
 			}
 		);
 	});

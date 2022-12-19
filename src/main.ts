@@ -13,7 +13,8 @@ export function activate(ctx: vscode.ExtensionContext) {
         // Auto apply gofumpt on save,
         // Respects "editor.formatOnSave"
         vscode.workspace.onDidSaveTextDocument(function (e) {
-                if (configuration["editor.formatOnSave"] == true){
+                const activeEditor = vscode.window.activeTextEditor;
+                if (configuration["editor.formatOnSave"] == true && activeEditor?.document.languageId === "gno"){
                         commands.format(ctx, gnoCtx)()
                 }
         });
