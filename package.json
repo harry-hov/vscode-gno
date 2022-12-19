@@ -57,6 +57,12 @@
         "path": "./syntaxes/gno.tmLanguage.json"
       }
     ],
+    "snippets": [
+      {
+        "language": "gno",
+        "path": "./snippets/gno.json"
+      }
+    ],
     "configurationDefaults": {
       "[gno]": {
         "editor.insertSpaces": false,
