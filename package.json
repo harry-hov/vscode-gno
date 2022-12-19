@@ -3,7 +3,7 @@
   "displayName": "Gno",
   "version": "0.1.0-dev",
   "preview": true,
-  "publisher": "Hariom Verma",
+  "publisher": "harry-hov",
   "description": "Gno language support for Visual Studio Code",
   "author": {
     "name": "Hariom Verma"
@@ -24,6 +24,14 @@
   "engines": {
     "vscode": "^1.74.0"
   },
+  "main": "./out/main.js",
+  "activationEvents": [
+    "onLanguage:gno",
+    "workspaceContains:*.gno",
+    "workspaceContains:*/*.gno",
+    "workspaceContains:*/*/*.gno",
+    "onCommand:gno.welcome"
+  ],
   "contributes": {
     "languages": [
       {
@@ -58,6 +66,25 @@
         },
         "editor.suggest.snippetsPreventQuickSuggestions": false
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "gno.welcome",
+        "title": "Gno: Welcome",
+        "description": "Open the welcome page for the Gno extension."
+      },
+      {
+        "command": "gno.format",
+        "title": "Gno: Format Document",
+        "description": "Use `gofumpt` to format .gno file"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "13.13.46",
+    "@types/vscode": "1.67.0",
+    "esbuild": "0.12.21",
+    "prettier": "2.2.1",
+    "typescript": "^4.9.4"
   }
 }
