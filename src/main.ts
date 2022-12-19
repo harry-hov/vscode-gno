@@ -12,6 +12,9 @@ export function activate(ctx: vscode.ExtensionContext) {
 	
         // Register `gno.welcome`
         registerCommand('gno.welcome', commands.welcome);
+
+        // Register `gno.format`
+        registerCommand('gno.format', commands.format);
 }
 
 export function deactivate() { }

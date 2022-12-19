@@ -3,6 +3,7 @@ import vscode = require('vscode');
 import { GnoExtensionContext } from '../context';
 
 export { welcome } from './welcome';
+export { format } from './format';
 
 type CommandCallback<T extends unknown[]> = (...args: T) => Promise<unknown> | unknown;
 
