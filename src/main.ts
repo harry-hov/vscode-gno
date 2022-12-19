@@ -4,12 +4,18 @@ import { GnoExtensionContext } from './context';
 
 import * as commands from './commands';
 
-const goCtx: GnoExtensionContext = {};
+const gnoCtx: GnoExtensionContext = {};
 
 export function activate(ctx: vscode.ExtensionContext) {
+        // Auto apply gofumpt on save,
+        // TODO: if "editor.formatOnSave" == true, 
+        vscode.workspace.onDidSaveTextDocument(function (e) {
+                commands.format(ctx, gnoCtx)()
+        });
+
         // Creates registerCommand()
-        const registerCommand = commands.createRegisterCommand(ctx, goCtx);
-	
+        const registerCommand = commands.createRegisterCommand(ctx, gnoCtx);
+
         // Register `gno.welcome`
         registerCommand('gno.welcome', commands.welcome);
 
