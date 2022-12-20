@@ -4,6 +4,29 @@ Welcome! 👋🏻<br/>
 [The VS Code Gno extension]()
 provides language support for the [Gnolang](https://github.com/gnolang/gno) and enhance your [Gnolang](https://github.com/gnolang/gno) development experience.
 
+## Prerequisite
+
+- Install [Go](https://golang.org) 1.18 or newer if you haven't already.
+
+- Install [gofumpt](https://github.com/mvdan/gofumpt)
+
+    ```
+    go install mvdan.cc/gofumpt@latest
+    ```
+
+- Add Go bin to PATH
+
+   e.g (For MacOS)
+
+   - Open zsh shell configuration file
+   ```
+   nano ~/.zshrc
+   ```
+   - Add line given below
+   ```
+   export PATH="${PATH}:${GOPATH}/bin"
+   ```
+
 ## Feature highlights
 
 * [Syntax highlighting] - Syntax highlighting for Gno files
