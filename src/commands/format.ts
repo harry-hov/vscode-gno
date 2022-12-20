@@ -6,18 +6,16 @@ import { dirname, isAbsolute } from 'path';
 import { CommandFactory } from "."
 
 export const format: CommandFactory = () => {
-	const activeEditor = vscode.window.activeTextEditor;
-	if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
-		return () => { 
+	return () => {
+		const activeEditor = vscode.window.activeTextEditor;
+		if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
 			return vscode.window.showErrorMessage("gno.format: not a .gno file");
 		}
-	}
 
-	return () => {
 		let filename = activeEditor?.document.fileName
 		if (filename != undefined) {
 			const res = runGoFumpt(filename)
-			return
+			return res
 		}
 		return vscode.window.showErrorMessage("gno.format: cannot get filename");
 	}
@@ -48,7 +46,6 @@ function runGoFumpt(
 					vscode.window.showErrorMessage(stderr || err.message)
 					return vscode.window.showErrorMessage("gno.format: gofumpt failed");
 				}
-				return vscode.window.showInformationMessage("gno.format: gofumpt successful");
 			}
 		);
 	});
