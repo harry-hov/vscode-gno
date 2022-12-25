@@ -46,7 +46,7 @@ function runGnodevPrecompile(
 			gnodev,
 			[
 				'precompile',
-				fileName,
+				dirname(fileName),
 			],
 			{
 				//env: toolExecutionEnvironment(),
