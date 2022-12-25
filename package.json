@@ -64,6 +64,17 @@
         "path": "./snippets/gno.json"
       }
     ],
+    "configuration": {
+      "type": "object",
+      "title": "Gno",
+      "properties": {
+        "gno.precompileOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Precompiles code on file save using 'gnodev precompile'."
+        }
+      }
+    },
     "configurationDefaults": {
       "[gno]": {
         "editor.insertSpaces": false,
@@ -83,7 +94,12 @@
       {
         "command": "gno.format",
         "title": "Gno: Format Document",
-        "description": "Use `gofumpt` to format .gno file"
+        "description": "Use `gofumpt` to format .gno file."
+      },
+      {
+        "command": "gno.precompile",
+        "title": "Gno: Precompile",
+        "description": "Use `gnodev precompile` to precompile .gno file with imports."
       }
     ]
   },
