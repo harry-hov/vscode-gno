@@ -1,7 +1,7 @@
 {
   "name": "gno",
   "displayName": "Gno",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "preview": true,
   "publisher": "harry-hov",
   "description": "Gno language support for Visual Studio Code",
@@ -70,7 +70,7 @@
       "properties": {
         "gno.precompileOnSave": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Precompiles code on file save using 'gnodev precompile'."
         }
       }
