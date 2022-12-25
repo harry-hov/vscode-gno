@@ -4,9 +4,13 @@ import util = require('../util');
 import { dirname, isAbsolute } from 'path';
 
 import { CommandFactory } from "."
+import { globalChannel } from "../global";
+import dayjs = require("dayjs");
 
-export const precompile: CommandFactory =  () => {
-	return () => {
+export const precompile: CommandFactory = (ctx, gnoCtx) => {
+	return (calledOnSave:boolean = false) => {
+                globalChannel.clear();
+
 		const activeEditor = vscode.window.activeTextEditor;
 		if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
 			return vscode.window.showErrorMessage("gno.precompile: not a .gno file");
@@ -14,7 +18,7 @@ export const precompile: CommandFactory =  () => {
 
 		let filename = activeEditor?.document.fileName
 		if (filename != undefined) {
-			const res = runGnodevPrecompile(filename)
+			const res = runGnodevPrecompile(filename, calledOnSave)
 			return res
 		}
 		return vscode.window.showErrorMessage("gno.precompile: cannot get filename");
@@ -27,6 +31,7 @@ export const precompile: CommandFactory =  () => {
  */
 function runGnodevPrecompile(
 	fileName: string,
+        calledOnSave:boolean
 ): Thenable<void> {
 	const gnodev = util.getBinPath('gnodev');
 
@@ -43,9 +48,14 @@ function runGnodevPrecompile(
 			},
 			(err, stdout, stderr) => {
 				if (err) {
-					vscode.window.showErrorMessage(stderr || err.message)
-					return vscode.window.showErrorMessage("gno.precompile: failed");
+                                        globalChannel.append(`${dayjs().format()} gno.precompile: ${stderr}`);
+					globalChannel.show();
+					return vscode.window.showErrorMessage(stderr || err.message);
 				}
+                                if (!calledOnSave) {
+					globalChannel.show();
+                                        globalChannel.appendLine(`${dayjs().format()} gno.precompile: Done!`)
+                                }
 			}
 		);
 	});

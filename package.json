@@ -103,6 +103,9 @@
       }
     ]
   },
+  "dependencies": {
+    "dayjs": "^1.11.7"
+  },
   "devDependencies": {
     "@types/node": "13.13.46",
     "@types/vscode": "1.67.0",

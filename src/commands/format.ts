@@ -4,9 +4,13 @@ import util = require('../util');
 import { dirname, isAbsolute } from 'path';
 
 import { CommandFactory } from "."
+import { globalChannel } from "../global";
+import dayjs = require("dayjs");
 
-export const format: CommandFactory = () => {
-	return () => {
+export const format: CommandFactory = (ctx, gnoCtx) => {
+	return (calledOnSave:boolean = false) => {
+		globalChannel.clear();
+
 		const activeEditor = vscode.window.activeTextEditor;
 		if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
 			return vscode.window.showErrorMessage("gno.format: not a .gno file");
@@ -14,7 +18,7 @@ export const format: CommandFactory = () => {
 
 		let filename = activeEditor?.document.fileName
 		if (filename != undefined) {
-			const res = runGoFumpt(filename)
+			const res = runGoFumpt(filename, calledOnSave)
 			return res
 		}
 		return vscode.window.showErrorMessage("gno.format: cannot get filename");
@@ -27,6 +31,7 @@ export const format: CommandFactory = () => {
  */
 function runGoFumpt(
 	fileName: string,
+        calledOnSave:boolean
 ): Thenable<void> {
 	const gofumpt = util.getBinPath('gofumpt');
 
@@ -43,8 +48,13 @@ function runGoFumpt(
 			},
 			(err, stdout, stderr) => {
 				if (err) {
-					vscode.window.showErrorMessage(stderr || err.message)
-					return vscode.window.showErrorMessage("gno.format: gofumpt failed");
+					globalChannel.append(`${dayjs().format()} gno.format: ${stderr}`)
+					globalChannel.show();
+					return vscode.window.showErrorMessage(stderr || err.message)
+				}
+				if (!calledOnSave) {
+					globalChannel.appendLine(`${dayjs().format()} gno.format: Done!`)
+					globalChannel.show();
 				}
 			}
 		);

@@ -5,6 +5,7 @@ import { GnoExtensionContext } from './context';
 import * as commands from './commands';
 import { format } from 'path';
 import { getGnoConfig } from './config';
+import { globalChannel } from './global';
 
 const gnoCtx: GnoExtensionContext = {};
 let diagnosticCollection: vscode.DiagnosticCollection;
@@ -28,11 +29,12 @@ export async function activate(ctx: vscode.ExtensionContext) {
                 const activeEditor = vscode.window.activeTextEditor;
                 if (activeEditor?.document.languageId === "gno") {
                         diagnosticCollection.set(activeEditor.document.uri, undefined);
+ 
                         async function format() {
                                 // Auto apply gofumpt on save,
                                 // Respects "editor.formatOnSave"
                                 if (configuration["editor.formatOnSave"] == true) {
-                                        commands.format(ctx, gnoCtx)()
+                                        commands.format(ctx, gnoCtx)(true)
                                 }
                         }
 
@@ -40,7 +42,7 @@ export async function activate(ctx: vscode.ExtensionContext) {
                                 // Auto apply gofumpt on save,
                                 // Respects "editor.formatOnSave"
                                 if (cfg["precompileOnSave"]) {
-                                        commands.precompile(ctx, gnoCtx)()
+                                        commands.precompile(ctx, gnoCtx)(true)
                                 }
                         }
 
@@ -52,7 +54,7 @@ export async function activate(ctx: vscode.ExtensionContext) {
                                                 diagnosticCollection.set(activeEditor.document.uri, vscode.languages.getDiagnostics(genFileUri));
                                         }, 1000)
                                 })
-                        })
+                        })                
                 }
         });
 
