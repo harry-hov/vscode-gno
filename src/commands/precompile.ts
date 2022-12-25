@@ -8,20 +8,26 @@ import { globalChannel } from "../global";
 import dayjs = require("dayjs");
 
 export const precompile: CommandFactory = (ctx, gnoCtx) => {
-	return (calledOnSave:boolean = false) => {
-                globalChannel.clear();
+	return async (calledOnSave: boolean = false) => {
+		globalChannel.clear();
 
 		const activeEditor = vscode.window.activeTextEditor;
 		if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
-			return vscode.window.showErrorMessage("gno.precompile: not a .gno file");
+			vscode.window.showErrorMessage("gno.precompile: not a .gno file");
+			return new Error("gno.precompile: not a .gno file")
 		}
 
 		let filename = activeEditor?.document.fileName
-		if (filename != undefined) {
-			const res = runGnodevPrecompile(filename, calledOnSave)
-			return res
+		if (filename === undefined) {
+			vscode.window.showErrorMessage("gno.precompile: cannot get filename");
+			return new Error("gno.precompile: cannot get filename")
 		}
-		return vscode.window.showErrorMessage("gno.precompile: cannot get filename");
+
+		return await runGnodevPrecompile(filename, calledOnSave).then(res => {
+			return null
+		}).then(undefined, err => {
+			return err;
+		})
 	}
 }
 
@@ -31,7 +37,7 @@ export const precompile: CommandFactory = (ctx, gnoCtx) => {
  */
 function runGnodevPrecompile(
 	fileName: string,
-        calledOnSave:boolean
+	calledOnSave: boolean
 ): Thenable<void> {
 	const gnodev = util.getBinPath('gnodev');
 
@@ -48,14 +54,16 @@ function runGnodevPrecompile(
 			},
 			(err, stdout, stderr) => {
 				if (err) {
-                                        globalChannel.append(`${dayjs().format()} gno.precompile: ${stderr}`);
+					globalChannel.append(`${dayjs().format()} gno.precompile: ${stderr}`);
 					globalChannel.show();
-					return vscode.window.showErrorMessage(stderr || err.message);
+					vscode.window.showErrorMessage(stderr || err.message);
+					return reject(stderr)
 				}
-                                if (!calledOnSave) {
+				if (!calledOnSave) {
 					globalChannel.show();
-                                        globalChannel.appendLine(`${dayjs().format()} gno.precompile: Done!`)
-                                }
+					globalChannel.appendLine(`${dayjs().format()} gno.precompile: Done!`)
+				}
+				return resolve()
 			}
 		);
 	});

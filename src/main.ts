@@ -25,36 +25,33 @@ export async function activate(ctx: vscode.ExtensionContext) {
         diagnosticCollection = vscode.languages.createDiagnosticCollection('gno');
         ctx.subscriptions.push(diagnosticCollection);
 
-        vscode.workspace.onDidSaveTextDocument(function (e) {
+        vscode.workspace.onDidSaveTextDocument(async function (e) {
                 const activeEditor = vscode.window.activeTextEditor;
                 if (activeEditor?.document.languageId === "gno") {
                         diagnosticCollection.set(activeEditor.document.uri, undefined);
- 
-                        async function format() {
-                                // Auto apply gofumpt on save,
-                                // Respects "editor.formatOnSave"
-                                if (configuration["editor.formatOnSave"] == true) {
-                                        commands.format(ctx, gnoCtx)(true)
-                                }
-                        }
 
-                        async function precompile() {
-                                // Auto apply gofumpt on save,
-                                // Respects "editor.formatOnSave"
+                        // Auto apply gofumpt on save,
+                        // Respects "editor.formatOnSave"
+                        if (configuration["editor.formatOnSave"] == true) {
+                                const err = await commands.format(ctx, gnoCtx)(true)
+                                if (err !== null) {
+                                        return
+                                }
+
+                                // Precompile on save.
                                 if (cfg["precompileOnSave"]) {
-                                        commands.precompile(ctx, gnoCtx)(true)
-                                }
-                        }
+                                        const err = await commands.precompile(ctx, gnoCtx)(true)
+                                        if (err !== null) {
+                                                return
+                                        }
 
-                        format().then(() => {
-                                precompile().then(() => {
                                         setTimeout(() => {
                                                 // Apply diagnostics to `*.gno` file from `*.gno.gen.go`
                                                 const genFileUri = vscode.Uri.file(activeEditor.document.fileName + ".gen.go");
                                                 diagnosticCollection.set(activeEditor.document.uri, vscode.languages.getDiagnostics(genFileUri));
                                         }, 1000)
-                                })
-                        })                
+                                }
+                        }
                 }
         });
 
