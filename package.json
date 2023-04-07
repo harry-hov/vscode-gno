@@ -49,6 +49,16 @@
           "dark": "media/gno-logo-white.png",
           "light": "media/gno-logo-black.png"
         }
+      },
+      {
+        "id": "gno.mod",
+        "filenames": [
+          "gno.mod"
+        ],
+        "aliases": [
+          "Gno Module File"
+        ],
+        "configuration": "./languages/gno.mod.language-configuration.json"
       }
     ],
     "grammars": [
@@ -56,6 +66,11 @@
         "language": "gno",
         "scopeName": "source.gno",
         "path": "./syntaxes/gno.tmLanguage.json"
+      },
+      {
+        "language": "gno.mod",
+        "scopeName": "gno.mod",
+        "path": "./syntaxes/gno.mod.tmGrammar.json"
       }
     ],
     "snippets": [
