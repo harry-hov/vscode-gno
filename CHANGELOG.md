@@ -2,6 +2,10 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
+## [v0.0.7-preview]
+- `gno.mod` grammer support 
+- `gnodev` -> `gno` (See: https://github.com/gnolang/gno/pull/585)
+
 ## [v0.0.6-preview]
 - Support precompile onSave (disabled by default)
 - Use output channel for commands
