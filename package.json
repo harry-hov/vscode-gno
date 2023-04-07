@@ -86,7 +86,7 @@
         "gno.precompileOnSave": {
           "type": "boolean",
           "default": false,
-          "description": "Precompiles code on file save using 'gnodev precompile'."
+          "description": "Precompiles code on file save using 'gno precompile'."
         }
       }
     },
@@ -114,7 +114,7 @@
       {
         "command": "gno.precompile",
         "title": "Gno: Precompile",
-        "description": "Use `gnodev precompile` to precompile .gno file with imports."
+        "description": "Use `gno precompile` to precompile .gno file with imports."
       }
     ]
   },

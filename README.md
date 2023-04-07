@@ -31,7 +31,7 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 
 * [Syntax highlighting] - Syntax highlighting for Gno files
 * [Formatting] - Automatically apply [gofumpt](https://github.com/mvdan/gofumpt) formatting on save
-* [Precompile] - Precompile uses [gnodev](https://github.com/gnolang/gno/tree/master/cmd/gnodev). `gnodev` need to be installed for this feature to work. You can also enable precompile on save in the configuration. 
+* [Precompile] - Precompile uses [gno](https://github.com/gnolhttps://github.com/gnolang/gno/tree/master/gnovm/cmd/gno). `gno` need to be installed for this feature to work. You can also enable precompile on save in the configuration. 
 * [Snippets] - Templates that make it easier to enter repeating code patterns, such as loops or conditional-statements.
 * [Diagnostics] -  Build, vet, and lint errors shown as you type or on save. Need `precompileOnSave` to be enabled.
 

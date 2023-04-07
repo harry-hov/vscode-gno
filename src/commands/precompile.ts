@@ -23,7 +23,7 @@ export const precompile: CommandFactory = (ctx, gnoCtx) => {
 			return new Error("gno.precompile: cannot get filename")
 		}
 
-		return await runGnodevPrecompile(filename, calledOnSave).then(res => {
+		return await runGnoPrecompile(filename, calledOnSave).then(res => {
 			return null
 		}).then(undefined, err => {
 			return err;
@@ -35,15 +35,15 @@ export const precompile: CommandFactory = (ctx, gnoCtx) => {
  * @param fileName name of the activeEditor file
  * @returns errorMessage in case the method fails, null otherwise
  */
-function runGnodevPrecompile(
+function runGnoPrecompile(
 	fileName: string,
 	calledOnSave: boolean
 ): Thenable<void> {
-	const gnodev = util.getBinPath('gnodev');
+	const gno = util.getBinPath('gno');
 
 	return new Promise((resolve, reject) => {
 		cp.execFile(
-			gnodev,
+			gno,
 			[
 				'precompile',
 				dirname(fileName),
