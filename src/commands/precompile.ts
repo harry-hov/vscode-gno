@@ -39,32 +39,25 @@ function runGnoPrecompile(
 	fileName: string,
 	calledOnSave: boolean
 ): Thenable<void> {
-	const gno = util.getBinPath('gno');
-
 	return new Promise((resolve, reject) => {
-		cp.execFile(
-			gno,
-			[
-				'precompile',
-				dirname(fileName),
-			],
-			{
-				//env: toolExecutionEnvironment(),
-				cwd: dirname(fileName)
-			},
-			(err, stdout, stderr) => {
-				if (err) {
-					globalChannel.append(`${dayjs().format()} gno.precompile: ${stderr}`);
-					globalChannel.show();
-					vscode.window.showErrorMessage(stderr || err.message);
-					return reject(stderr)
-				}
-				if (!calledOnSave) {
-					globalChannel.show();
-					globalChannel.appendLine(`${dayjs().format()} gno.precompile: Done!`)
-				}
-				return resolve()
+		const gno = util.getBinPath('gno');
+		const gnoFlags = ['precompile', dirname(fileName)];
+		cp.execFile(gno, gnoFlags, { cwd: dirname(fileName) }, (err, stdout, stderr) => {
+			if (err && (<any>err).code === 'ENOENT') {
+				util.promptForMissingTool(gno);
+				return reject();
 			}
-		);
+			if (err) {
+				globalChannel.append(`${dayjs().format()} gno.precompile: ${stderr}`);
+				globalChannel.show();
+				vscode.window.showErrorMessage(stderr || err.message);
+				return reject(stderr)
+			}
+			if (!calledOnSave) {
+				globalChannel.show();
+				globalChannel.appendLine(`${dayjs().format()} gno.precompile: Done!`)
+			}
+			return resolve()
+		});
 	});
 }
