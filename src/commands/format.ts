@@ -39,32 +39,25 @@ function runGoFumpt(
 	fileName: string,
 	calledOnSave: boolean
 ): Thenable<void> {
-	const gofumpt = util.getBinPath('gofumpt');
-
 	return new Promise((resolve, reject) => {
-		cp.execFile(
-			gofumpt,
-			[
-				'-w',
-				fileName,
-			],
-			{
-				//env: toolExecutionEnvironment(),
-				cwd: dirname(fileName)
-			},
-			(err, stdout, stderr) => {
-				if (err) {
-					globalChannel.append(`${dayjs().format()} gno.format: ${stderr}`)
-					globalChannel.show();
-					vscode.window.showErrorMessage(stderr || err.message)
-					return reject(stderr)
-				}
-				if (!calledOnSave) {
-					globalChannel.appendLine(`${dayjs().format()} gno.format: Done!`)
-					globalChannel.show();
-				}
-				return resolve()
+		const gofumpt = util.getBinPath('gofumpt');
+		const gofumptFlags = ['-w', fileName];
+		cp.execFile( gofumpt, gofumptFlags, { cwd: dirname(fileName) }, (err, stdout, stderr) => {
+			if (err && (<any>err).code === 'ENOENT') {
+				util.promptForMissingTool(gofumpt);
+				return reject();
 			}
-		);
+			if (err) {
+				globalChannel.append(`${dayjs().format()} gno.format: ${stderr}`)
+				globalChannel.show();
+				vscode.window.showErrorMessage(stderr || err.message)
+				return reject(stderr)
+			}
+			if (!calledOnSave) {
+				globalChannel.appendLine(`${dayjs().format()} gno.format: Done!`)
+				globalChannel.show();
+			}
+			return resolve()
+		});
 	});
 }
