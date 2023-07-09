@@ -37,16 +37,56 @@ export const testPackage: CommandFactory = (ctx, gnoCtx) => {
         } 
 }
 
+export const testFile: CommandFactory = (ctx, gnoCtx) => {
+        return async () => {
+                globalChannel.clear();
+
+                const activeEditor = vscode.window.activeTextEditor;
+                if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
+                        vscode.window.showErrorMessage("gno.test.package: not a .gno file");
+                        return new Error("gno.test.package: not a .gno file")
+                }
+
+                let filename = activeEditor?.document.fileName
+                if (filename === undefined) {
+                        vscode.window.showErrorMessage("gno.testPackage: cannot get filename");
+                        return new Error("gno.test.package: cannot get filename")
+                }
+                if (filename.endsWith("_test.gno") === false) {
+                        vscode.window.showErrorMessage("gno.test.package: not a _test.gno file");
+                        return new Error("gno.test.package: not a _test.gno file")
+                }
+
+                const getFunctions = getTestFunctions
+
+                return activeEditor.document
+			.save()
+			.then(() => {
+				return getFunctions(gnoCtx, activeEditor.document).then((testFunctions) => {
+					const functions= testFunctions?.map((sym) => sym.name);
+					return runGnoTestPackage(dirname(filename),functions);
+				});
+			})
+			.then(undefined, (err) => {
+				console.error(err);
+				return Promise.resolve(false);
+			});
+        } 
+}
+
 function runGnoTestPackage(
         pkgName: string,
         functionNames: string[] = []
 ): Thenable<void> {
         return new Promise((resolve, reject) => {
                 const gno = getBinPath('gno');
-                const gnoFlags = ['test', '-verbose', '-timeout', '30s', '-run', 'Test' ];
+                const gnoFlags = ['test', '-timeout', '30s', '-run', 'Test' ];
                 if (functionNames.length > 0) {
                         gnoFlags.push('-run')
-                        gnoFlags.push(functionNames.join("|"))
+                        gnoFlags.push(functionNames.map(function(name) {
+                                return  "^" + name + '$';
+                            }).join('|')
+                        )
                 }
                 gnoFlags.push(pkgName);
                 cp.execFile(gno, gnoFlags, { cwd: pkgName }, (err, stdout, stderr) => {

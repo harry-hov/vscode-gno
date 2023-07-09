@@ -135,7 +135,12 @@
       {
         "command": "gno.test.package",
         "title": "Gno: Test Package",
-        "description": "Use `gno test` to test package."
+        "description": "Use `gno test` to test Gno package."
+      },
+      {
+        "command": "gno.test.file",
+        "title": "Gno: Test File",
+        "description": "Use `gno test` to test *_test.gno file."
       }
     ]
   },
