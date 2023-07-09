@@ -2,6 +2,9 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
+## [v0.0.9-preview]
+- Minor bug fixes
+
 ## [v0.0.8-preview]
 - Support CodeLens for *_test.gno files
 - Show prompt for missing tool
