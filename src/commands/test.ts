@@ -21,7 +21,7 @@ export const testPackage: CommandFactory = (ctx, gnoCtx) => {
 
                 let filename = activeEditor?.document.fileName
                 if (filename === undefined) {
-                        vscode.window.showErrorMessage("gno.testPackage: cannot get filename");
+                        vscode.window.showErrorMessage("gno.test.package: cannot get filename");
                         return new Error("gno.test.package: cannot get filename")
                 }
                 if (filename.endsWith("_test.gno") === false) {
@@ -43,18 +43,18 @@ export const testFile: CommandFactory = (ctx, gnoCtx) => {
 
                 const activeEditor = vscode.window.activeTextEditor;
                 if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
-                        vscode.window.showErrorMessage("gno.test.package: not a .gno file");
-                        return new Error("gno.test.package: not a .gno file")
+                        vscode.window.showErrorMessage("gno.test.file: not a .gno file");
+                        return new Error("gno.test.file: not a .gno file")
                 }
 
                 let filename = activeEditor?.document.fileName
                 if (filename === undefined) {
-                        vscode.window.showErrorMessage("gno.testPackage: cannot get filename");
-                        return new Error("gno.test.package: cannot get filename")
+                        vscode.window.showErrorMessage("gno.test.file: cannot get filename");
+                        return new Error("gno.test.file: cannot get filename")
                 }
                 if (filename.endsWith("_test.gno") === false) {
-                        vscode.window.showErrorMessage("gno.test.package: not a _test.gno file");
-                        return new Error("gno.test.package: not a _test.gno file")
+                        vscode.window.showErrorMessage("gno.test.file: not a _test.gno file");
+                        return new Error("gno.test.file: not a _test.gno file")
                 }
 
                 const getFunctions = getTestFunctions
