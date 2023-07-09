@@ -2,6 +2,10 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
+## [v0.0.8-preview]
+- Support CodeLens for *_test.gno files
+- Show prompt for missing tool
+
 ## [v0.0.7-preview]
 - `gno.mod` grammer support 
 - `gnodev` -> `gno` (See: https://github.com/gnolang/gno/pull/585)
