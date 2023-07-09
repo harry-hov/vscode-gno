@@ -5,6 +5,7 @@ import { GnoExtensionContext } from './context';
 import * as commands from './commands';
 import { format } from 'path';
 import { getGnoConfig } from './config';
+import { GnoRunTestCodeLensProvider } from './gnoRunTestCodeLens';
 import { globalChannel } from './global';
 
 const gnoCtx: GnoExtensionContext = {};
@@ -57,6 +58,9 @@ export async function activate(ctx: vscode.ExtensionContext) {
 
         // Creates registerCommand()
         const registerCommand = commands.createRegisterCommand(ctx, gnoCtx);
+
+        // Activate `gno.test` CodeLens
+        GnoRunTestCodeLensProvider.activate(ctx, gnoCtx);
 
         // Register `gno.welcome`
         registerCommand('gno.welcome', commands.welcome);
