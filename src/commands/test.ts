@@ -139,13 +139,13 @@ function runGnoTest(
                                 return reject();
                         }
                         if (err) {
-                                globalChannel.append(`${dayjs().format()} gno.test.package: ${stderr}`);
+                                globalChannel.append(`${dayjs().format()} gno.test: ${stderr}`);
                                 globalChannel.show();
                                 vscode.window.showErrorMessage(stderr || err.message);
                                 return reject(stderr)
                         }
                         globalChannel.show();
-                        globalChannel.appendLine(`${dayjs().format()} gno.test.package: running tests...`)
+                        globalChannel.appendLine(`${dayjs().format()} gno.test: running tests...`)
                         globalChannel.appendLine(`${gno} ${gnoFlags.join(" ")}`)
                         globalChannel.appendLine(stderr)
                         return resolve()
