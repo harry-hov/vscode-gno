@@ -1,6 +1,7 @@
 import vscode = require('vscode');
 import { CancellationToken, CodeLens, TextDocument } from 'vscode';
 import { getGnoConfig } from './config';
+import { getTestFunctions } from './testUtil';
 import { GnoBaseCodeLensProvider } from './gnoBaseCodeLens';
 import { GoLegacyDocumentSymbolProvider } from './language/legacy/goOutline';
 import { GnoExtensionContext } from './context';
@@ -39,7 +40,8 @@ export class GnoRunTestCodeLensProvider extends GnoBaseCodeLensProvider {
 		}
 
 		const codelenses = await Promise.all([
-			this.getCodeLensForPackage(document, token)
+			this.getCodeLensForPackage(document, token),
+                        this.getCodeLensForFunctions(document, token)
 		]);
 		return ([] as CodeLens[]).concat(...codelenses);
 	}
@@ -66,5 +68,28 @@ export class GnoRunTestCodeLensProvider extends GnoBaseCodeLensProvider {
 			})
 		];
 		return packageCodeLens;
+	}
+
+        private async getCodeLensForFunctions(document: TextDocument, token: CancellationToken): Promise<CodeLens[]> {
+		const testPromise = async (): Promise<CodeLens[]> => {
+			const testFunctions = await getTestFunctions(this.gnoCtx, document, token);
+			if (!testFunctions) {
+				return [];
+			}
+			const codelens: CodeLens[] = [];
+			for (const f of testFunctions) {
+				codelens.push(
+					new CodeLens(f.range, {
+						title: 'run test',
+						command: 'gno.test.function',
+						arguments: [{ functionName: f.name }]
+					})
+				);
+			}
+			return codelens;
+		};
+
+		const codelenses = await Promise.all([testPromise()]);
+		return ([] as CodeLens[]).concat(...codelenses);
 	}
 }
