@@ -124,7 +124,7 @@ function runGnoTest(
 ): Thenable<void> {
         return new Promise((resolve, reject) => {
                 const gno = getBinPath('gno');
-                const gnoFlags = ['test', '-timeout', '30s', '-run', 'Test' ];
+                const gnoFlags = ['test', '-timeout', '30s' ];
                 if (functionNames.length > 0) {
                         gnoFlags.push('-run')
                         gnoFlags.push(functionNames.map(function(name) {
