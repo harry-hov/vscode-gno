@@ -29,7 +29,7 @@ export const testPackage: CommandFactory = (ctx, gnoCtx) => {
                         return new Error("gno.test.package: not a _test.gno file")
                 }
 
-                return await runGnoTestPackage(dirname(filename)).then(res => {
+                return await runGnoTest(dirname(filename)).then(res => {
                         return null
                 }).then(undefined, err => {
                         return err;
@@ -64,7 +64,7 @@ export const testFile: CommandFactory = (ctx, gnoCtx) => {
 			.then(() => {
 				return getFunctions(gnoCtx, activeEditor.document).then((testFunctions) => {
 					const functions= testFunctions?.map((sym) => sym.name);
-					return runGnoTestPackage(dirname(filename),functions);
+					return runGnoTest(dirname(filename),functions);
 				});
 			})
 			.then(undefined, (err) => {
@@ -74,7 +74,8 @@ export const testFile: CommandFactory = (ctx, gnoCtx) => {
         } 
 }
 
-function runGnoTestPackage(
+
+function runGnoTest(
         pkgName: string,
         functionNames: string[] = []
 ): Thenable<void> {
