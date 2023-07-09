@@ -5,7 +5,7 @@ import { GnoExtensionContext } from '../context';
 export { welcome } from './welcome';
 export { format } from './format';
 export { precompile } from './precompile';
-export { testPackage, testFile } from './test';
+export { testPackage, testFile, testFunction } from './test';
 
 type CommandCallback<T extends unknown[]> = (...args: T) => Promise<unknown> | unknown;
 

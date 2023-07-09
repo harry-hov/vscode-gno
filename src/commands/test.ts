@@ -74,6 +74,49 @@ export const testFile: CommandFactory = (ctx, gnoCtx) => {
         } 
 }
 
+export const testFunction: CommandFactory = (ctx, gnoCtx) => {
+        return async (args: any) => {
+                globalChannel.clear();
+
+                const activeEditor = vscode.window.activeTextEditor;
+                if (activeEditor == undefined || activeEditor?.document.languageId !== "gno") {
+                        vscode.window.showErrorMessage("gno.test.function: not a .gno file");
+                        return new Error("gno.test.function: not a .gno file")
+                }
+
+                let filename = activeEditor?.document.fileName
+                if (filename === undefined) {
+                        vscode.window.showErrorMessage("gno.test.function: cannot get filename");
+                        return new Error("gno.test.function: cannot get filename")
+                }
+                if (filename.endsWith("_test.gno") === false) {
+                        vscode.window.showErrorMessage("gno.test.function: not a _test.gno file");
+                        return new Error("gno.test.function: not a _test.gno file")
+                }
+
+                let testFunctionName = ""
+		if (args && args?.functionName) {
+                        testFunctionName = args.functionName;
+                } else {
+                        const getFunctions = getTestFunctions
+                        const testFunctions = (await getFunctions(gnoCtx, activeEditor.document)) ?? [];
+                        testFunctionName = testFunctions?.filter((func) => func.range.contains(activeEditor.selection.start)).map((el) => el.name)[0];
+                }
+
+                if (!testFunctionName) {
+                        vscode.window.showErrorMessage("gno.test.function: no test function found");
+                        return new Error("gno.test.function: no test function found");
+                }
+
+                await activeEditor.document.save();
+
+                return await runGnoTest(dirname(filename), [ testFunctionName ]).then(res => {
+                        return null
+                }).then(undefined, err => {
+                        return err;
+                })
+        } 
+}
 
 function runGnoTest(
         pkgName: string,

@@ -72,6 +72,9 @@ export async function activate(ctx: vscode.ExtensionContext) {
 
         // Register `gno.test.file`
         registerCommand('gno.test.file', commands.testFile);
+
+        // Register `gno.test.function`
+        registerCommand('gno.test.function', commands.testFunction);
 }
 
 export function deactivate() { }

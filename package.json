@@ -141,6 +141,11 @@
         "command": "gno.test.file",
         "title": "Gno: Test File",
         "description": "Use `gno test` to test *_test.gno file."
+      },
+      {
+        "command": "gno.test.function",
+        "title": "Gno: Test Function",
+        "description": "Use `gno test` to test a function in *_test.gno file."
       }
     ]
   },
