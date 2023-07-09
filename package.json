@@ -131,6 +131,11 @@
         "command": "gno.precompile",
         "title": "Gno: Precompile",
         "description": "Use `gno precompile` to precompile .gno file with imports."
+      },
+      {
+        "command": "gno.test.package",
+        "title": "Gno: Test Package",
+        "description": "Use `gno test` to test package."
       }
     ]
   },
