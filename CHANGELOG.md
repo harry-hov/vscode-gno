@@ -2,6 +2,9 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
+## [v0.0.X-preview]
+- Support creating `gno.mod` file
+
 ## [v0.0.9-preview]
 - Minor bug fixes
 

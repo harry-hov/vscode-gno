@@ -36,6 +36,7 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 * [Snippets] - Templates that make it easier to enter repeating code patterns, such as loops or conditional-statements.
 * [Code Lens] - Enables CodeLens for *_test.gno and *_filetest.gno files.
 * [Diagnostics] -  Build, vet, and lint errors shown as you type or on save. Need `precompileOnSave` to be enabled.
+* [Mod Init] -  Create `gno.mod` file.
 
 ## Contributing
 
