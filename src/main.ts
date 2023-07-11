@@ -82,6 +82,9 @@ export async function activate(ctx: vscode.ExtensionContext) {
 
         // Register `gno.mod.init`
         registerCommand('gno.mod.init', commands.modInit);
+
+        // Register `gno.maketx.addpkg`
+        registerCommand('gno.maketx.addpkg', commands.addPkg);
 }
 
 export function deactivate() { }

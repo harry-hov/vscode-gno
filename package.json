@@ -103,6 +103,34 @@
           },
           "description": "Feature level setting to enable/disable code lens for references and run/debug tests",
           "scope": "resource"
+        },
+        "gno.makeTx": {
+          "type": "object",
+          "properties": {
+            "broadcast": {
+              "type": "boolean",
+              "default": true,
+              "description": "If true, broadcasts transaction to chain"
+            },
+            "gasFee": {
+              "type": "string",
+              "default": "1000000ugnot",
+              "description": "Gas fee for transaction"
+            },
+            "gasWanted": {
+              "type": "string",
+              "default": "2000000",
+              "description": "Gas wanted for transaction"
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "broadcast": true,
+            "gasFee": "1000000ugnot",
+            "gasWanted": "4000000"
+          },
+          "description": "",
+          "scope": "resource"
         }
       }
     },
@@ -151,6 +179,11 @@
         "command": "gno.mod.init",
         "title": "Gno: Mod Init",
         "description": "Creates gno.mod file in root of workspace."
+      },
+      {
+        "command": "gno.maketx.addpkg",
+        "title": "Gno: Publish Package",
+        "description": "Use `gno maketx`to publish package to chain."
       }
     ]
   },
