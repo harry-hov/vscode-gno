@@ -37,6 +37,7 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 * [Code Lens] - Enables CodeLens for *_test.gno and *_filetest.gno files.
 * [Diagnostics] -  Build, vet, and lint errors shown as you type or on save. Need `precompileOnSave` to be enabled.
 * [Mod Init] -  Create `gno.mod` file.
+* [Publish Package] - Publish Gno package/realm to the chain. 
 
 ## Contributing
 
