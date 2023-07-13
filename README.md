@@ -38,6 +38,7 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 * [Diagnostics] -  Build, vet, and lint errors shown as you type or on save. Need `precompileOnSave` to be enabled.
 * [Mod Init] -  Create `gno.mod` file.
 * [Publish Package] - Publish Gno package/realm to the chain. 
+* [Clean Generated Files] - Cleans generated Go(`*.gno.gen.go`) files.
 
 ## Contributing
 

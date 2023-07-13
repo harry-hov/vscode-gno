@@ -8,6 +8,7 @@ export { precompile } from './precompile';
 export { testPackage, testFile, testFunction } from './test';
 export { modInit } from './modInit';
 export { addPkg } from './addPkg';
+export { clean } from './clean';
 
 type CommandCallback<T extends unknown[]> = (...args: T) => Promise<unknown> | unknown;
 

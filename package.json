@@ -161,6 +161,11 @@
         "description": "Use `gno precompile` to precompile .gno file with imports."
       },
       {
+        "command": "gno.clean",
+        "title": "Gno: Clean",
+        "description": "Cleans generated Go(*.gno.gen.go) files."
+      },
+      {
         "command": "gno.test.package",
         "title": "Gno: Test Package",
         "description": "Use `gno test` to test Gno package."

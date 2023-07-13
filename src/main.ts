@@ -71,6 +71,9 @@ export async function activate(ctx: vscode.ExtensionContext) {
         // Register `gno.precompile`
         registerCommand('gno.precompile', commands.precompile);
 
+        // Register `gno.clean`
+        registerCommand('gno.clean', commands.clean);
+
         // Register `gno.test.package`
         registerCommand('gno.test.package', commands.testPackage);
 
