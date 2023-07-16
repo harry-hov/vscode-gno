@@ -1,1 +1,1 @@
-module gno.land/p/test
+module gno.land/p/demo/helloworld
