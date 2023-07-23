@@ -188,7 +188,7 @@
       {
         "command": "gno.maketx.addpkg",
         "title": "Gno: Publish Package (unsafe)",
-        "description": "Use `gno maketx`to publish package to chain."
+        "description": "Use `gnokey maketx addpkg` to publish package to chain."
       }
     ]
   },
