@@ -127,7 +127,7 @@ function runMaketxAddpkg(
         keyname: string,
         pass: string,
 ): Thenable<void> {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
                 const gnokey = getBinPath('gnokey');
                 const gnokeyMaketxAddpkgFlags = ['maketx', 'addpkg'];
                 gnokeyMaketxAddpkgFlags.push('-pkgpath', pkgPath)
@@ -141,20 +141,35 @@ function runMaketxAddpkg(
                 gnokeyMaketxAddpkgFlags.push('-remote', remote)
                 gnokeyMaketxAddpkgFlags.push('-insecure-password-stdin')
                 gnokeyMaketxAddpkgFlags.push(keyname)
-               
-                // TODO: prompt if tool is missing or on error
+
                 const child = cp.spawn(gnokey, gnokeyMaketxAddpkgFlags, { cwd: rootDir });
                 globalChannel.show();
                 globalChannel.appendLine(`${dayjs().format()} gno.maketx.addpkg: ${gnokey} ${gnokeyMaketxAddpkgFlags.join(' ')}`);
                 child.stderr.on('data', function (data) {
                         globalChannel.appendLine(`${dayjs().format()} gno.maketx.addpkg: ${data.toString()}`);
-                        for (let i = 0; i < pass.length; i++) {
-                                child.stdin.write(pass[i]);
+                        if (data.toString().startsWith("Enter password")) {
+                                for (let i = 0; i < pass.length; i++) {
+                                        child.stdin.write(pass[i]);
+                                }
+                                child.stdin.write("\n");
                         }
-                        child.stdin.write("\n");
                 });
                 child.stdout.on('data', function (data) {
                         globalChannel.appendLine(`${dayjs().format()} gno.maketx.addpkg: ${data.toString()}`);
+                });
+                child.on('error', function (err) {
+                        if (err instanceof Error && (<any>err).code === 'ENOENT') {
+                                promptForMissingTool(gnokey);
+                        }
+                        return reject();
+                });
+                child.on('exit', function (code) {
+                        if (code == 0) {
+                                globalChannel.appendLine("gno.maketx.addpkg: Done!")
+                                return resolve();
+                        }
+                        globalChannel.appendLine("gno.maketx.addpkg: Failed!")
+                        return reject();
                 });
         })
 }
