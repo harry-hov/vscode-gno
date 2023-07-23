@@ -8,6 +8,8 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 
 - Install [Go](https://golang.org) 1.18 or newer if you haven't already.
 
+- Install [Gno](https://github.com/gnolang/gno/tree/master/gnovm/cmd/gno#install) and [Gnokey](https://github.com/gnolang/gno/tree/master/gno.land/cmd/gnokey#install-gnokey).
+
 - Install [gofumpt](https://github.com/mvdan/gofumpt)
 
     ```
