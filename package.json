@@ -88,6 +88,48 @@
           "default": false,
           "description": "Precompiles code on file save using 'gno precompile'."
         },
+        "gno.formatTool": {
+          "type": "string",
+          "default": "gofumpt",
+          "markdownDescription": "When the language server is enabled and one of `gofmt`/`gofumpt` can be chosen.",
+          "scope": "resource",
+          "enum": [
+            "default",
+            "gofmt",
+            "gofumpt"
+          ],
+          "markdownEnumDescriptions": [
+            "Format via the gofumpt.",
+            "use gofmt to format the file.",
+            "Stricter version of gofmt, see https://github.com/mvdan/gofumpt."
+           ]
+        },
+        "gno.gnoroot": {
+          "type": "string",
+          "default": "/Users/harry/Desktop/work/gno",
+          "description": "Specifies the GNOROOT to use when no environment variable is set.",
+          "scope": "machine-overridable"
+        },
+        "gno.useLanguageServer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use the Gno language server \"gnopls\" for powering language features like code navigation, completion, refactoring, formatting & diagnostics."
+        },
+        "gno.languageServerExperimentalFeatures": {
+          "type": "object",
+          "properties": {
+            "diagnostics": {
+              "type": "boolean",
+              "default": true,
+              "description": "If true, the language server will provide precompile and build errors."
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "diagnostics": true
+          },
+          "markdownDescription": "Temporary flag to enable/disable diagnostics from the language server."
+        },
         "gno.enableCodeLens": {
           "type": "object",
           "properties": {
@@ -131,6 +173,30 @@
           },
           "description": "",
           "scope": "resource"
+        },
+        "gnopls": {
+          "type": "object",
+          "markdownDescription": "Configure the default Gno language server ('gnopls').",
+          "scope": "resource",
+          "properties": {
+            "GNOROOT":{
+              "type": "string",
+              "default": "",
+              "markdownDescription": "path to cloned gno repository",
+              "scope": "machine-overridable"
+            },
+            "build.env": {
+              "type": "object",
+              "markdownDescription": "env adds environment variables to external commands run by `gnopls`.",
+              "scope": "resource"
+            },
+            "formatting.gofumpt": {
+              "type": "boolean",
+              "markdownDescription": "gofumpt indicates if we should run gofumpt formatting.",
+              "default": true,
+              "scope": "resource"
+            }
+          }
         }
       }
     },
@@ -149,6 +215,11 @@
         "command": "gno.welcome",
         "title": "Gno: Welcome",
         "description": "Open the welcome page for the Gno extension."
+      },
+      {
+        "command": "gno.languageserver.restart",
+        "title": "Gno: Restart Language Server",
+        "description": "Restart the running instance of the language server."
       },
       {
         "command": "gno.format",
@@ -194,7 +265,10 @@
   },
   "dependencies": {
     "dayjs": "^1.11.7",
+    "vscode-languageclient": "8.0.1",
+    "vscode-languageserver-protocol": "3.17.1",
     "tree-kill": "file:third_party/tree-kill",
+    "web-request": "1.0.7"
   },
   "devDependencies": {
     "@types/node": "13.13.46",
