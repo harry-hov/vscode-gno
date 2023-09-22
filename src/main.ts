@@ -13,11 +13,6 @@ let diagnosticCollection: vscode.DiagnosticCollection;
 let completionItemLabel: vscode.CompletionItemLabel;
 
 export async function activate(ctx: vscode.ExtensionContext) {
-        const go = vscode.extensions.getExtension("golang.go");
-        if (!go?.isActive) {
-                await go?.activate();
-        }
-
         const cfg = getGnoConfig();
 
         const res = vscode.workspace.getConfiguration("[gno]");
@@ -26,35 +21,22 @@ export async function activate(ctx: vscode.ExtensionContext) {
         diagnosticCollection = vscode.languages.createDiagnosticCollection('gno');
         ctx.subscriptions.push(diagnosticCollection);
 
-        vscode.workspace.onDidSaveTextDocument(async function (e) {
-                const activeEditor = vscode.window.activeTextEditor;
-                if (activeEditor?.document.languageId === "gno") {
-                        diagnosticCollection.set(activeEditor.document.uri, undefined);
-
-                        // Auto apply gofumpt on save,
-                        // Respects "editor.formatOnSave"
-                        if (configuration["editor.formatOnSave"] == true) {
-                                const err = await commands.format(ctx, gnoCtx)(true)
-                                if (err !== null) {
-                                        return
-                                }
-
-                                // Precompile on save.
-                                if (cfg["precompileOnSave"]) {
-                                        const err = await commands.precompile(ctx, gnoCtx)(true)
+        if (cfg['useLanguageServer'] === false) {
+                vscode.workspace.onDidSaveTextDocument(async function (e) {
+                        const activeEditor = vscode.window.activeTextEditor;
+                        if (activeEditor?.document.languageId === "gno") {
+                                diagnosticCollection.set(activeEditor.document.uri, undefined);
+                                // Auto apply gofumpt on save,
+                                // Respects "editor.formatOnSave"
+                                if (configuration["editor.formatOnSave"] == true) {
+                                        const err = await commands.format(ctx, gnoCtx)(true)
                                         if (err !== null) {
                                                 return
                                         }
-
-                                        setTimeout(() => {
-                                                // Apply diagnostics to `*.gno` file from `*.gno.gen.go`
-                                                const genFileUri = vscode.Uri.file(activeEditor.document.fileName + ".gen.go");
-                                                diagnosticCollection.set(activeEditor.document.uri, vscode.languages.getDiagnostics(genFileUri));
-                                        }, 1000)
                                 }
                         }
-                }
-        });
+                });
+        }
 
         // Creates registerCommand()
         const registerCommand = commands.createRegisterCommand(ctx, gnoCtx);
@@ -62,8 +44,13 @@ export async function activate(ctx: vscode.ExtensionContext) {
         // Activate `gno.test` CodeLens
         GnoRunTestCodeLensProvider.activate(ctx, gnoCtx);
 
+        await commands.startLanguageServer(ctx, gnoCtx)();
+
         // Register `gno.welcome`
         registerCommand('gno.welcome', commands.welcome);
+
+        // Register `gno.languageserver.restart`
+        registerCommand('gno.languageserver.restart', commands.startLanguageServer);
 
         // Register `gno.format`
         registerCommand('gno.format', commands.format);
