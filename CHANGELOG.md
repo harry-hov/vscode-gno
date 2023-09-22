@@ -2,6 +2,9 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
+## [v0.0.X-preview]
+- Support Language Server (See: https://github.com/harry-hov/gnopls)
+
 ## [v0.0.11-preview]
 - Use new Gno logo as file icon in filetree (See: https://github.com/harry-hov/vscode-gno/issues/3)
 - Handle `error` and `exit` for `gno.maketx.addpkg` command
