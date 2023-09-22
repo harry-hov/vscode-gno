@@ -124,7 +124,7 @@ export function usingCustomFormatTool(gnoConfig: { [key: string]: any }): boolea
 export function getFormatTool(gnoConfig: { [key: string]: any }): string {
 	const formatTool = gnoConfig['formatTool'];
 	if (formatTool === 'default') {
-		return 'gofumt';
+		return 'gofumpt';
 	}
 	return formatTool;
 }
