@@ -6,10 +6,12 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 
 ## Prerequisite
 
-- Install [Go](https://golang.org) 1.18 or newer if you haven't already.
+- Install [Go](https://golang.org) 1.19 or newer if you haven't already.
 
 - Install [Gno](https://github.com/gnolang/gno/tree/master/gnovm/cmd/gno#install) and [Gnokey](https://github.com/gnolang/gno/tree/master/gno.land/cmd/gnokey#install-gnokey).
 
+- Install `Gnopls` (See: https://github.com/harry-hov/gnopls)
+  
 - Install [gofumpt](https://github.com/mvdan/gofumpt)
 
     ```
@@ -33,11 +35,11 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 
 * [Syntax highlighting] - Syntax highlighting for Gno files
 * [Formatting] - Automatically apply [gofumpt](https://github.com/mvdan/gofumpt) formatting on save
-* [Precompile] - Precompile uses [gno](https://github.com/gnolhttps://github.com/gnolang/gno/tree/master/gnovm/cmd/gno). `gno` needs to be installed for this feature to work. You can also enable precompile on save in the configuration. 
+* [Precompile] - Precompile uses [gno](https://github.com/gnolhttps://github.com/gnolang/gno/tree/master/gnovm/cmd/gno). `gno` needs to be installed for this feature to work.
 * [Test] - Test *_test.gno and *_filetest.gno files. Uses [gno](https://github.com/gnolhttps://github.com/gnolang/gno/tree/master/gnovm/cmd/gno) and `gno` needs to be installed for this feature to work.
 * [Snippets] - Templates that make it easier to enter repeating code patterns, such as loops or conditional-statements.
 * [Code Lens] - Enables CodeLens for *_test.gno and *_filetest.gno files.
-* [Diagnostics] -  Build, vet, and lint errors shown as you type or on save. Need `precompileOnSave` to be enabled.
+* [Diagnostics] -  Build and lint errors shown as you type or on save. Needs language server(`gnopls`) to be enabled.
 * [Mod Init] -  Create `gno.mod` file.
 * [Publish Package] - Publish Gno package/realm to the chain. [`gnokey`](https://github.com/gnolang/gno/tree/master/gno.land/cmd/gnokey) needs to be installed for this feature to work.
 * [Clean Generated Files] - Cleans generated Go(`*.gno.gen.go`) files.
