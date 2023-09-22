@@ -2,7 +2,7 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
-## [v0.0.X-preview]
+## [v0.0.12-preview]
 - Support Language Server (See: https://github.com/harry-hov/gnopls)
 
 ## [v0.0.11-preview]
