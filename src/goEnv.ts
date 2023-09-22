@@ -65,7 +65,7 @@ export function toolExecutionEnvironment(uri?: vscode.Uri, addProcessEnv = true)
 	}
 
 	const currentGNOROOT = process.env['GNOROOT'];
-	if (currentGNOROOT == "") {
+	if (currentGNOROOT == "" || currentGNOROOT == undefined) {
 		env['GNOROOT'] = gnoConfig['gnoroot'];
 	}
 
