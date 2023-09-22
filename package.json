@@ -193,7 +193,8 @@
     ]
   },
   "dependencies": {
-    "dayjs": "^1.11.7"
+    "dayjs": "^1.11.7",
+    "tree-kill": "file:third_party/tree-kill",
   },
   "devDependencies": {
     "@types/node": "13.13.46",
