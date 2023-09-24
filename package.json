@@ -106,7 +106,7 @@
         },
         "gno.gnoroot": {
           "type": "string",
-          "default": "/Users/harry/Desktop/work/gno",
+          "default": "",
           "description": "Specifies the GNOROOT to use when no environment variable is set.",
           "scope": "machine-overridable"
         },

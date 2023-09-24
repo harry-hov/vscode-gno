@@ -180,7 +180,6 @@ export async function buildLanguageClient(
 	let initializationError: WebRequest.ResponseError<InitializeError> | undefined = undefined;
 	
 	const gnoConfig = getGnoConfig();
-	// /Users/harry/Desktop/work/gno
 	const c = new LanguageClient(
 		'gno', // id
 		cfg.serverName, // name e.g. gnopls
