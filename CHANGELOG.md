@@ -2,6 +2,9 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
+## [v0.0.15-preview]
+- s/precompile/transpile
+
 ## [v0.0.14-preview]
 - Fix: set default GNOROOT path to empty string
 
