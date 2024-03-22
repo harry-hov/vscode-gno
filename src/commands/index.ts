@@ -5,7 +5,7 @@ import { startLanguageServer } from './startLanguageServer';
 
 export { welcome } from './welcome';
 export { format } from './format';
-export { precompile } from './precompile';
+export { transpile } from './transpile';
 export { testPackage, testFile, testFunction } from './test';
 export { modInit } from './modInit';
 export { addPkg } from './addPkg';

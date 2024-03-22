@@ -35,7 +35,7 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 
 * [Syntax highlighting] - Syntax highlighting for Gno files
 * [Formatting] - Automatically apply [gofumpt](https://github.com/mvdan/gofumpt) formatting on save
-* [Precompile] - Precompile uses [gno](https://github.com/gnolhttps://github.com/gnolang/gno/tree/master/gnovm/cmd/gno). `gno` needs to be installed for this feature to work.
+* [Transpile] - Transpile uses [gno](https://github.com/gnolhttps://github.com/gnolang/gno/tree/master/gnovm/cmd/gno). `gno` needs to be installed for this feature to work.
 * [Test] - Test *_test.gno and *_filetest.gno files. Uses [gno](https://github.com/gnolhttps://github.com/gnolang/gno/tree/master/gnovm/cmd/gno) and `gno` needs to be installed for this feature to work.
 * [Snippets] - Templates that make it easier to enter repeating code patterns, such as loops or conditional-statements.
 * [Code Lens] - Enables CodeLens for *_test.gno and *_filetest.gno files.

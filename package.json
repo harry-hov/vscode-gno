@@ -83,10 +83,10 @@
       "type": "object",
       "title": "Gno",
       "properties": {
-        "gno.precompileOnSave": {
+        "gno.transpileOnSave": {
           "type": "boolean",
           "default": false,
-          "description": "Precompiles code on file save using 'gno precompile'."
+          "description": "Transpiles code to Go on file save using 'gno transpile'."
         },
         "gno.formatTool": {
           "type": "string",
@@ -121,7 +121,7 @@
             "diagnostics": {
               "type": "boolean",
               "default": true,
-              "description": "If true, the language server will provide precompile and build errors."
+              "description": "If true, the language server will provide transpile and build errors."
             }
           },
           "additionalProperties": false,
@@ -227,9 +227,9 @@
         "description": "Use `gofumpt` to format .gno file."
       },
       {
-        "command": "gno.precompile",
-        "title": "Gno: Precompile",
-        "description": "Use `gno precompile` to precompile .gno file with imports."
+        "command": "gno.transpile",
+        "title": "Gno: Transpile",
+        "description": "Use `gno transpile` to transpile .gno file with imports."
       },
       {
         "command": "gno.clean",
