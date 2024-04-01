@@ -6,7 +6,7 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 
 ## Prerequisite
 
-- Install [Go](https://golang.org) 1.19 or newer if you haven't already.
+- Install [Go](https://golang.org) 1.21 or newer if you haven't already.
 
 - Install [Gno](https://github.com/gnolang/gno/tree/master/gnovm/cmd/gno#install) and [Gnokey](https://github.com/gnolang/gno/tree/master/gno.land/cmd/gnokey#install-gnokey).
 
@@ -30,6 +30,8 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
    ```
    export PATH="${PATH}:${GOPATH}/bin"
    ```
+
+- Update GNOROOT(path to gno repository clone) in the extension settings.
 
 ## Feature highlights
 
