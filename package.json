@@ -1,8 +1,8 @@
 {
   "name": "gno",
   "displayName": "Gno",
-  "version": "0.0.15",
-  "preview": true,
+  "version": "0.1.0",
+  "preview": false,
   "publisher": "harry-hov",
   "description": "Gno language support for Visual Studio Code",
   "author": {

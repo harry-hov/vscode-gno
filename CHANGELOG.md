@@ -2,6 +2,9 @@
 
 All notable changes to the "gno" extension will be documented in this file.
 
+## [v0.1.0]
+- Dropped preview status
+
 ## [v0.0.15-preview]
 - s/precompile/transpile
 
