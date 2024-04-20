@@ -18,6 +18,12 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
     go install mvdan.cc/gofumpt@latest
     ```
 
+- Install [go-outline](https://github.com/ramya-rao-a/go-outline)
+
+    ```
+    go install github.com/ramya-rao-a/go-outline@latest
+    ```
+
 - Add Go bin to PATH
 
    e.g (For MacOS)
