@@ -10,7 +10,7 @@ provides language support for the [Gnolang](https://github.com/gnolang/gno) and 
 
 - Install [Gno](https://github.com/gnolang/gno/tree/master/gnovm/cmd/gno#install) and [Gnokey](https://github.com/gnolang/gno/tree/master/gno.land/cmd/gnokey#install-gnokey).
 
-- Install `Gnopls` (See: https://github.com/harry-hov/gnopls)
+- Install `Gnopls` (See: https://github.com/gnolang/gnopls)
   
 - Install [gofumpt](https://github.com/mvdan/gofumpt)
 
